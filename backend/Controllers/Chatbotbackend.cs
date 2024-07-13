@@ -1,6 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +11,7 @@ namespace backend.Controllers
     [Route("api/[controller]")]
     public class Chatbotbackend : ControllerBase
     {
-      private readonly HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
 
         public Chatbotbackend(HttpClient httpClient)
         {
@@ -20,27 +21,36 @@ namespace backend.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ChatRequest request)
         {
-            var response = await GetHuggingFaceResponse(request.Message);
-            return Ok(new { Response = response });
+            var response = await GetGoogleGenerativeAIResponse(request.Message);
+            return Ok(response); // Return the response as-is
         }
 
-        private async Task<string> GetHuggingFaceResponse(string message)
+        private async Task<string> GetGoogleGenerativeAIResponse(string message)
         {
-            var huggingFaceApiUrl = "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct"; //meta-llama/Meta-Llama-3-8B-Instruct
-            var apiKey = "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";
+            var googleGenerativeAiServiceUrl = "http://localhost:4000/generate"; // The URL of your Node.js service
 
-            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
-            var content = new StringContent($"{{\"inputs\":\"{message}\"}}", System.Text.Encoding.UTF8, "application/json");
+            try
+            {
+                var payload = new { prompt = message };
+                var jsonPayload = JsonSerializer.Serialize(payload);
+                var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync(huggingFaceApiUrl, content);
-            response.EnsureSuccessStatusCode();
+                var response = await _httpClient.PostAsync(googleGenerativeAiServiceUrl, content);
+                response.EnsureSuccessStatusCode();
 
-            var responseString = await response.Content.ReadAsStringAsync();
-            return responseString;
-        }   
-    }
-    public class ChatRequest
-    {
-        public string? Message { get; set; }
+                var responseString = await response.Content.ReadAsStringAsync();
+                return responseString; // Return the raw JSON response
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error calling Node.js service: {ex.Message}");
+                return $"{{ \"error\": \"{ex.Message}\" }}"; // Return error JSON
+            }
+        }
+
+        public class ChatRequest
+        {
+            public string? Message { get; set; }
+        }
     }
 }

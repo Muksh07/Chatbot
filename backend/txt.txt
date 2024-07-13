@@ -1,0 +1,4 @@
+key = AIzaSyBRbGSmWWEbkPAXCsBABNHejpXqjL9872Y
+api = https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?
+
+gemini-1.0-pro

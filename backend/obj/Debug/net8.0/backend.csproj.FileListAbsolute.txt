@@ -32,3 +32,8 @@ C:\Exl\chatbot\backend\obj\Debug\net8.0\backend.pdb
 C:\Exl\chatbot\backend\obj\Debug\net8.0\backend.genruntimeconfig.cache
 C:\Exl\chatbot\backend\obj\Debug\net8.0\ref\backend.dll
 C:\Exl\chatbot\backend\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Exl\chatbot\backend\obj\Debug\net8.0\backend.sourcelink.json
+C:\Exl\chatbot\backend\bin\Debug\net8.0\Google.Apis.dll
+C:\Exl\chatbot\backend\bin\Debug\net8.0\Google.Apis.Core.dll
+C:\Exl\chatbot\backend\bin\Debug\net8.0\DotNetEnv.dll
+C:\Exl\chatbot\backend\bin\Debug\net8.0\Sprache.dll
