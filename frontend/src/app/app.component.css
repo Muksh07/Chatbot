@@ -1,5 +1,4 @@
 .chatbot-container {
-  height: 80vh;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -10,7 +9,7 @@
 .messages-container {
   overflow-y: auto;
   flex-grow: 1;
-  background-color: black;
+  background-color: gray;
 }
 
 .user-message {
@@ -19,6 +18,7 @@
   color: white;
   border-radius: 5px;
   max-width: 60%;
+  align-self: flex-end;
 }
 
 .bot-message {
@@ -26,6 +26,9 @@
   margin: 2px;
   border-radius: 5px;
   max-width: 60%;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
 }
 
 .input-group-container {
@@ -51,10 +54,26 @@ pre {
   border-radius: 5px;
   color: white;
   overflow-x: auto;
+  font-family: inherit;
+  margin-bottom: 10px;
 }
 
-code {
-  display: block;
-  white-space: pre;
-  color: white; /* Adjust this color as needed for syntax highlighting */
+.explanation {
+  color: white;
+  margin-top: 10px;
+}
+
+.code-block {
+  background-color: black;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  overflow-x: auto;
+  font-family: inherit;
+  margin-bottom: 10px;
+}
+
+.explanation-block {
+  color: white;
+  margin-top: 10px;
 }

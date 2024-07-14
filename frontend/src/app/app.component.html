@@ -4,15 +4,16 @@
     <div class="card-body d-flex flex-column">
       <div class="messages-container flex-grow-1">
         <div *ngFor="let message of messages" class="d-flex mb-3">
-          <div *ngIf="message.isUser" class="ml-auto user-message">
-            {{message.text}}
+          <div *ngIf="message.isUser" class="user-message ms-auto">
+            {{ message.text }}
           </div>
-          <div *ngIf="!message.isUser" class="mr-auto bot-message">
-            <ng-container *ngIf="isCodeMessage(message.text); else regularMessage">
-              <pre><code [class]="getLanguageClass(message.text)">{{ formatMessage(message.text) }}</code></pre>
+          <div *ngIf="!message.isUser" class="bot-message mr-auto">
+            <ng-container *ngIf="message.isCode; else regularMessage">
+              <div *ngIf="message.code" class="code-block" [innerHTML]="message.code"></div>
+              <div *ngIf="message.explanation" class="explanation-block" [innerHTML]="message.explanation"></div>
             </ng-container>
             <ng-template #regularMessage>
-              {{message.text}}
+              {{ message.text }}
             </ng-template>
           </div>
         </div>
