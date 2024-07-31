@@ -6,6 +6,7 @@
   background-color: gray;
 }
 
+
 .messages-container {
   overflow-y: auto;
   flex-grow: 1;
